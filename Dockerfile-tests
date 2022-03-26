@@ -1,0 +1,16 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+WORKDIR /src
+COPY ["HelloWorld.UnitTests/HelloWorld.UnitTests.csproj", "."]
+COPY ["HelloWorld.BDDTests/HelloWorld.BDDTests.csproj", "."]
+
+FROM build AS run-tests
+WORKDIR /src
+ARG ASPNETCORE_ENVIRONMENT
+ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT
+COPY ./solution.runsettings ./test.runsettings
+RUN sed -i "s/Local/$ASPNETCORE_ENVIRONMENT/" ./test.runsettings
+RUN dotnet test --settings ./test.runsettings -c Release "HelloWorld.UnitTests.csproj" --logger trx --results-directory /app/testresults
+RUN dotnet test --settings ./test.runsettings -c Release "HelloWorld.BDDTests.csproj" --logger trx --results-directory /app/testresults
+
