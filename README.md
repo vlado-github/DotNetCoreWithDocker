@@ -10,6 +10,6 @@ A sample WebAPI project for using Docker for local setup and tests
 - In browser use URL: _http://localhost/weatherforecast_
 
 ## Run Tests in Docker
-- Build Docker image and run tests: `docker build -t helloworldtests -f Dockerfile-tests .`
-- In case of specific environment: 
-- `docker build --build-arg ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT  -f Dockerfile-tests .`
+- Build Docker image: `docker build -t helloworldtests -f Dockerfile-tests .`
+- Build Docker image (for specific environment): `docker build --build-arg ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT -t helloworldtests -f Dockerfile-tests .`
+- Run Docker image (i.e. run tests): `docker run -d helloworldtests`
