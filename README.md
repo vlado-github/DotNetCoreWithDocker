@@ -8,7 +8,7 @@ A sample WebAPI project for using Docker for local setup and tests
 - `docker build .`
 - `docker run`
 
-## Run Test in Docker
+## Run Tests in Docker
 - `docker build -f Dockerfile-test .`
 Or for specific environment
 - `docker build --build-arg ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT  -f Dockerfile-test .`
